@@ -103,8 +103,8 @@ async def process_bfhl_data(request: BFHLRequest):
         
         return BFHLResponse(
             is_success=True,
-            user_id="john_doe_17091999",
-            email="john@xyz.com",
+            user_id="kartikeyan_kumar_01102002",
+            email="kartikeyan@xyz.com",
             roll_number="ABCD123",
             odd_numbers=processed_data["odd_numbers"],
             even_numbers=processed_data["even_numbers"],
@@ -117,8 +117,8 @@ async def process_bfhl_data(request: BFHLRequest):
     except Exception as e:
         return BFHLResponse(
             is_success=False,
-            user_id="john_doe_17091999",
-            email="john@xyz.com", 
+            user_id="kartikeyan_kumar_01102002",
+            email="kartikeyan@xyz.com", 
             roll_number="ABCD123",
             odd_numbers=[],
             even_numbers=[],
