@@ -1,7 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from starlette.middleware.cors import CORSMiddleware
 import os
-import logging
 from pydantic import BaseModel
 from typing import List, Any
 
@@ -27,7 +26,7 @@ class BFHLResponse(BaseModel):
     sum: str
     concat_string: str
 
-# Helper functions for BFHL logic
+# Helper functions
 def is_number(s):
     try:
         int(s)
@@ -95,14 +94,14 @@ def create_alternating_caps_string(alphabet_chars):
 # API Routes
 @api_router.get("/")
 async def root():
-    return {"message": "BFHL Array Data Processing API", "status": "running"}
+    return {"message": "BFHL Array Data Processing API", "status": "running", "docs": "/docs"}
 
-@api_router.post("/bfhl", response_model=BFHLResponse)
+@api_router.post("/bfhl")
 async def process_bfhl_data(request: BFHLRequest):
     try:
         processed_data = process_array_data(request.data)
         
-        response = BFHLResponse(
+        return BFHLResponse(
             is_success=True,
             user_id="john_doe_17091999",
             email="john@xyz.com",
@@ -115,13 +114,11 @@ async def process_bfhl_data(request: BFHLRequest):
             concat_string=processed_data["concat_string"]
         )
         
-        return response
-        
     except Exception as e:
         return BFHLResponse(
             is_success=False,
             user_id="john_doe_17091999",
-            email="john@xyz.com",
+            email="john@xyz.com", 
             roll_number="ABCD123",
             odd_numbers=[],
             even_numbers=[],
@@ -131,19 +128,23 @@ async def process_bfhl_data(request: BFHLRequest):
             concat_string=""
         )
 
-# Include the router
+# Include router
 app.include_router(api_router)
 
-# Add CORS middleware
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],  # In production, specify exact origins
+    allow_origins=["*"],  # Allow all origins for now
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# For deployment
+# Health check endpoint
+@app.get("/")
+async def health_check():
+    return {"status": "healthy", "message": "BFHL API is running"}
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
