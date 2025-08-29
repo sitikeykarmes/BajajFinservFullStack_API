@@ -104,8 +104,8 @@ async def process_bfhl_data(request: BFHLRequest):
         return BFHLResponse(
             is_success=True,
             user_id="kartikeyan_kumar_01102002",
-            email="kartikeyan@xyz.com",
-            roll_number="ABCD123",
+            email="kartikeyan.kumar2022@vitstudent.ac.in",
+            roll_number="22BEC1096",
             odd_numbers=processed_data["odd_numbers"],
             even_numbers=processed_data["even_numbers"],
             alphabets=processed_data["alphabets"],
@@ -118,8 +118,8 @@ async def process_bfhl_data(request: BFHLRequest):
         return BFHLResponse(
             is_success=False,
             user_id="kartikeyan_kumar_01102002",
-            email="kartikeyan@xyz.com", 
-            roll_number="ABCD123",
+            email="kartikeyan.kumar2022@vitstudent.ac.in", 
+            roll_number="22BEC1096",
             odd_numbers=[],
             even_numbers=[],
             alphabets=[],
